@@ -1,1 +1,57 @@
-
+.wrapper {
+    margin-top: 120px;
+    text-align: center;
+  }
+  
+  .header {
+    margin-bottom: 1rem;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    color: #0a1d5d;
+  }
+  
+  .description {
+    font-size: 1.2rem;
+    color: #4a4a4a;
+  }
+  
+  .button-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+  }
+  
+  .login-button {
+    padding: .75rem 1.5rem;
+    font-size: 1rem;
+    background: #0a1d5d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .signup-button {
+    padding: .75rem 1.5rem;
+    font-size: 1rem;
+    background: #fff;
+    color: #0a1d5d;
+    border: 2px solid #0a1d5d;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .footer {
+    position: absolute;
+    bottom: 1rem;
+    width: 100%;
+    text-align: center;
+    font-size: .8rem;
+    color: #888;
+  }
+  
