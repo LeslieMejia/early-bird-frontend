@@ -1,0 +1,63 @@
+/* Wrapper background */
+.dashboard-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #f0f4f8, #d9e4f5); /* light blue gradient */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  /* Card container */
+  .dashboard-card {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 420px;
+  }
+  
+  /* Main title */
+  .dashboard-title {
+    font-size: 2.5rem;
+    color: #0a1d5d;
+    margin-bottom: 10px;
+  }
+  
+  /* Subtitle */
+  .dashboard-subtitle {
+    font-size: 1.5rem;
+    color: #4a4a4a;
+    margin-bottom: 25px;
+  }
+  
+  /* Role section (jobseeker/employer buttons) */
+  .role-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 20px;
+  }
+  
+  /* Buttons */
+  .dashboard-button {
+    background: #0a1d5d;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  /* Hover animation */
+  .dashboard-button:hover {
+    background-color: #081745;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  

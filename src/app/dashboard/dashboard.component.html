@@ -1,1 +1,22 @@
-<p>dashboard works!</p>
+
+  <div class="dashboard-wrapper">
+    <div class="dashboard-card">
+  
+      <h1 class="dashboard-title">Dashboard</h1>
+  
+      <!-- Jobseeker View -->
+      <div *ngIf="userRole === 'jobseeker'" class="role-section">
+        <h2 class="dashboard-subtitle">Welcome, Jobseeker!</h2>
+        <a routerLink="/jobs" class="dashboard-button">🔍 Browse Available Jobs</a>
+        <a routerLink="/applications" class="dashboard-button">📄 View Your Applications</a>
+      </div>
+  
+      <!-- Employer View -->
+      <div *ngIf="userRole === 'employer'" class="role-section">
+        <h2 class="dashboard-subtitle">Welcome, Employer!</h2>
+        <a routerLink="/post-job" class="dashboard-button">➕ Post a New Job</a>
+        <a routerLink="/manage-jobs" class="dashboard-button">🛠️ Manage Your Job Postings</a>
+      </div>
+    </div>
+  </div>
+  
