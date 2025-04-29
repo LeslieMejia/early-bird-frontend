@@ -1,13 +1,11 @@
+// src/app/app.component.ts
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router'; // <- NOTICE: RouterLink is imported
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet], 
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [RouterOutlet],
+  template: `<router-outlet></router-outlet>`
 })
-export class AppComponent {
-  title = 'Early Bird Jobs';
-}
+export class AppComponent { }

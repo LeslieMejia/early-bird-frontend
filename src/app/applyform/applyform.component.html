@@ -1,0 +1,10 @@
+<!-- src/app/applyform/applyform.component.html -->
+<ng-container *ngIf="job; else noJob">
+    <h2>Apply to {{ job.title }}</h2>
+    <textarea [(ngModel)]="coverLetter" placeholder="Write your cover letter…" rows="6" style="width:100%"></textarea>
+    <button (click)="submit()">Send Application</button>
+</ng-container>
+
+<ng-template #noJob>
+    <p>Job not found.</p>
+</ng-template>
