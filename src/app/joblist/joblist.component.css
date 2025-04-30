@@ -13,3 +13,19 @@
     margin-bottom: 16px;
     background-color: #f9f9f9;
 }
+
+.apply-button,
+.back-button {
+    background-color: #0b1d4e;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.apply-button:hover,
+.back-button:hover {
+    background-color: #1a2c6b;
+}

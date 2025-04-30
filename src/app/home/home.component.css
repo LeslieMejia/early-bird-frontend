@@ -1,57 +1,59 @@
-.wrapper {
-    margin-top: 120px;
-    text-align: center;
-  }
-  
-  .header {
-    margin-bottom: 1rem;
-  }
-  
-  .title {
-    font-size: 2.5rem;
-    color: #0a1d5d;
-  }
-  
-  .description {
-    font-size: 1.2rem;
-    color: #4a4a4a;
-  }
-  
-  .button-container {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    justify-content: center;
-  }
-  
-  .login-button {
-    padding: .75rem 1.5rem;
-    font-size: 1rem;
-    background: #0a1d5d;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    display: inline-block;
-  }
-  
-  .signup-button {
-    padding: .75rem 1.5rem;
-    font-size: 1rem;
-    background: #fff;
-    color: #0a1d5d;
-    border: 2px solid #0a1d5d;
-    border-radius: 5px;
-    text-decoration: none;
-    display: inline-block;
-  }
-  
-  .footer {
-    position: absolute;
-    bottom: 1rem;
-    width: 100%;
-    text-align: center;
-    font-size: .8rem;
-    color: #888;
-  }
-  
+.home-container {
+  text-align: center;
+  margin-top: 80px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+h1 {
+  font-size: 36px;
+  color: #001b5e;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+.button-group {
+  margin-bottom: 30px;
+}
+
+button {
+  padding: 12px 28px;
+  margin: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button:not(.outlined) {
+  background-color: #001b5e;
+  color: white;
+}
+
+button.outlined {
+  background-color: white;
+  color: #001b5e;
+  border: 2px solid #001b5e;
+}
+
+.back-link a {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #001b5e;
+  font-size: 15px;
+}
+
+.back-link a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,9 @@
+<h2>My Applications</h2>
+
+<ul>
+    <li *ngFor="let app of applications">
+        <strong>{{ app.jobTitle }}</strong> – {{ app.status }}
+    </li>
+</ul>
+
+<button routerLink="/dashboard">← Back to Dashboard</button>

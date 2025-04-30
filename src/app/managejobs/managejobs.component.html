@@ -1,1 +1,30 @@
-<p>managejobs works!</p>
+<h2>Manage Jobs</h2>
+
+<div *ngFor="let job of jobs" class="job-card">
+    <h3>{{ job.title }}</h3>
+    <p><strong>Company:</strong> {{ job.company }}</p>
+    <p><strong>Location:</strong> {{ job.location }}</p>
+    <p><strong>Type:</strong> {{ job.type }}</p>
+
+    <div class="button-row">
+        <button (click)="editJob(job.id)" class="btn">Edit</button>
+        <button (click)="deleteJob(job.id)" class="btn delete">Delete</button>
+        <button (click)="toggleApplications(job.id)" class="btn view-apps">
+            {{ expandedJobId === job.id ? 'Hide' : 'View' }} Applications
+        </button>
+    </div>
+
+    <div *ngIf="expandedJobId === job.id && applications[job.id]?.length > 0" class="application-list">
+        <h4>Applications</h4>
+        <ul>
+            <li *ngFor="let app of applications[job.id]">
+                <p><strong>Applicant:</strong> {{ app.jobseekername }}</p>
+                <p><strong>Status:</strong> {{ app.status }}</p>
+                <p><strong>Resume:</strong> {{ app.resumecontent }}</p>
+                <p><strong>Cover Letter:</strong> {{ app.coverletter }}</p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<a routerLink="/dashboard" class="back-button">← Back to Dashboard</a>

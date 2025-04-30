@@ -1,0 +1,44 @@
+.job-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+}
+
+.job-card h3 {
+    margin-top: 0;
+}
+
+.button-group {
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn.edit {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn.nav {
+    background-color: #001F5B;
+    color: white;
+    text-decoration: none;
+}
+
+.navigation-buttons {
+    margin-top: 30px;
+}

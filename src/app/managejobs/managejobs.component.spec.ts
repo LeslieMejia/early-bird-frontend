@@ -10,8 +10,8 @@ describe('ManagejobsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ManagejobsComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ManagejobsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

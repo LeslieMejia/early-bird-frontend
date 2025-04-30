@@ -16,13 +16,13 @@ export class JoblistComponent {
   jobs: Job[] = [];
 
   constructor(private jobService: JobService) {
-    this.jobs = this.jobService.getAll();
+    this.jobs = this.jobService.getJobs();
   }
 
   get filteredJobs(): Job[] {
     const term = this.searchTerm.trim().toLowerCase();
     if (!term) {
-      // no filter? show everything
+
       return this.jobs;
     }
     return this.jobs.filter(j =>

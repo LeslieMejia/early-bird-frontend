@@ -7,4 +7,10 @@
     <p><strong>Company:</strong> {{ job.company }}</p>
     <p><strong>Location:</strong> {{ job.location }}</p>
     <p><strong>Type:</strong> {{ job.type }}</p>
+
+
+    <button [routerLink]="['/apply', job.id]" class="apply-button">Apply</button>
 </div>
+
+
+<button [routerLink]="['/dashboard']" class="back-button">Back to Dashboard</button>
