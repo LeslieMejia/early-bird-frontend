@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { JobService, Job, JobApplication } from '../services/job.service';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { JobService } from '../services/job.service';
+import { Job } from '../../models/job.model';
+import { JobApplication } from '../../models/job-application.model';
 
 @Component({
   selector: 'app-managejobs',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './managejobs.component.html',
   styleUrls: ['./managejobs.component.css']
 })
@@ -11,29 +17,30 @@ export class ManagejobsComponent implements OnInit {
   applications: { [jobId: number]: JobApplication[] } = {};
   expandedJobId: number | null = null;
 
-  constructor(private jobService: JobService) { }
+  constructor(private jobService: JobService, private router: Router) { }
 
   ngOnInit(): void {
-    this.loadJobs();
-  }
-
-  loadJobs(): void {
-    this.jobs = this.jobService.getJobs();
-    this.jobs.forEach(job => {
-      this.applications[job.id] = this.jobService.getApplicationsByJobId(job.id);
+    this.jobService.getJobs().subscribe((jobs) => {
+      this.jobs = jobs;
+      for (const job of jobs) {
+        this.jobService.getApplicationsByJobId(job.id).subscribe((apps) => {
+          this.applications[job.id] = apps;
+        });
+      }
     });
   }
 
+  editJob(id: number): void {
+    this.router.navigate(['/postjob', id]);
+  }
+
   deleteJob(id: number): void {
-    this.jobService.deleteJob(id);
-    this.loadJobs();
+    this.jobService.deleteJob(id).subscribe(() => {
+      this.jobs = this.jobs.filter((j) => j.id !== id);
+    });
   }
 
   toggleApplications(jobId: number): void {
     this.expandedJobId = this.expandedJobId === jobId ? null : jobId;
-  }
-
-  editJob(id: number): void {
-    // Implement routing if needed
   }
 }

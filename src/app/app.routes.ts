@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
@@ -15,24 +16,15 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'dashboard', component: DashboardComponent },
+
+  // JOB SEEKER FLOW
   { path: 'jobs', component: JoblistComponent },
   { path: 'jobs/:id', component: JobdetailComponent },
   { path: 'apply/:id', component: ApplyformComponent },
   { path: 'applications', component: ApplicationsComponent },
+
+  // EMPLOYER FLOW
   { path: 'post-job', component: PostjobComponent },
   { path: 'post-job/:id', component: PostjobComponent },
-  { path: 'manage-jobs', component: ManagejobsComponent },
-
-
-
-
-
+  { path: 'manage-jobs', component: ManagejobsComponent }
 ];
-
-
-
-
-
-
-
-

@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { JobService, Job } from '../services/job.service';
+
+import { JobService } from '../services/job.service';
+import { Job } from '../../models/job.model';
+import { JobApplication } from '../../models/job-application.model';
 
 @Component({
   selector: 'app-applyform',
@@ -25,23 +28,24 @@ export class ApplyformComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.job = this.jobService.getById(id);
+    this.jobService.getById(id).subscribe(job => {
+      this.job = job;
+    });
   }
 
   submitApplication(): void {
     if (!this.job) return;
 
-    this.jobService.submitApplication({
-      jobid: this.job.id,
-      jobseekerid: 10, // hardcoded for now
-      resumecontent: this.resumeText,
-      coverletter: this.coverLetter,
-      id: 0,
-      jobseekername: '',
-      status: ''
-    });
+    const application: JobApplication = {
+      jobId: this.job.id,
+      jobseekerId: this.jobseekerId,
+      resumeContent: this.resumeText,
+      coverLetter: this.coverLetter
+    };
 
-    alert('✅ Application submitted!');
-    this.router.navigate(['/applications']);
+    this.jobService.submitApplication(application).subscribe(() => {
+      alert('✅ Application submitted!');
+      this.router.navigate(['/applications']);
+    });
   }
 }

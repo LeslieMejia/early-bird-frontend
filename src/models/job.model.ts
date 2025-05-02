@@ -9,4 +9,6 @@ export interface Job {
   salaryRange?: string;
   category?: string;
   status: JobStatus;
+  company: string;
+  type: string;
 }
