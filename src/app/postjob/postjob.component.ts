@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-import { JobService, Job } from '../job.service';
+import { JobService, Job } from '../services/job.service';
 
 @Component({
   selector: 'app-postjob',

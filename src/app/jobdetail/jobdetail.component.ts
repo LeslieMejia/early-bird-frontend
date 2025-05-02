@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { JobService } from '../job.service';
+import { JobService } from '../services/job.service';
 
 @Component({
   selector: 'app-jobdetail',

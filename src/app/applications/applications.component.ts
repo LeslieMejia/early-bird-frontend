@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { JobService } from '../job.service';
+
 
 @Component({
   selector: 'app-applications',
@@ -13,7 +13,6 @@ import { JobService } from '../job.service';
 export class ApplicationsComponent implements OnInit {
   applications: { jobTitle: string; status: string }[] = [];
 
-  constructor(private jobService: JobService) { }
 
   ngOnInit(): void {
     // For now, mock data to simulate actual application entries
