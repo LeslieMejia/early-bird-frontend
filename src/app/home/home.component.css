@@ -1,59 +1,75 @@
+/* Gør container til full‐screen flexbox og centrer alt */
 .home-container {
+  display: flex;
+  justify-content: center;
+  /* center horisontalt */
+  align-items: center;
+  /* center vertikalt */
+  min-height: 100vh;
+  /* fyld hele højden af viewport */
+  padding: 1rem;
+  box-sizing: border-box;
+  background: #f5f7fa;
+  /* let grå baggrund, valgfri */
+}
+
+/* Selve “kortet” */
+.hero-card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
   text-align: center;
-  margin-top: 80px;
-  font-family: 'Segoe UI', sans-serif;
 }
 
-h1 {
-  font-size: 36px;
+/* Overskrift */
+.hero-title {
+  font-size: 2.5rem;
   color: #001b5e;
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
 }
 
-p {
-  font-size: 18px;
+/* Undertekst */
+.hero-subtitle {
+  font-size: 1.125rem;
   color: #333;
-  margin-bottom: 40px;
+  margin-bottom: 2rem;
 }
 
-.button-group {
-  margin-bottom: 30px;
+/* Knap‐container: centrer knapper */
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
-button {
-  padding: 12px 28px;
-  margin: 10px;
-  font-size: 16px;
+/* Fælles knap‐stil */
+.hero-buttons .btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
-  border-radius: 6px;
+  border-radius: 0.5rem;
   cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+/* Primær knap */
+.hero-buttons .btn-primary {
+  background-color: #001b5e;
+  color: white;
   border: none;
 }
 
-button:hover {
-  opacity: 0.9;
-}
-
-button:not(.outlined) {
-  background-color: #001b5e;
-  color: white;
-}
-
-button.outlined {
-  background-color: white;
+/* Outline‐knap */
+.hero-buttons .btn-outline {
+  background: white;
   color: #001b5e;
   border: 2px solid #001b5e;
 }
 
-.back-link a {
-  display: inline-block;
-  margin-top: 20px;
-  text-decoration: none;
-  font-weight: bold;
-  color: #001b5e;
-  font-size: 15px;
-}
-
-.back-link a:hover {
-  text-decoration: underline;
+/* Hover‐effekt */
+.hero-buttons .btn:hover {
+  opacity: 0.9;
 }
