@@ -1,30 +1,27 @@
-import { Routes } from '@angular/router';
-
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { JoblistComponent } from './joblist/joblist.component';
-import { JobdetailComponent } from './jobdetail/jobdetail.component';
-import { ApplyformComponent } from './applyform/applyform.component';
-import { ApplicationsComponent } from './applications/applications.component';
-import { PostjobComponent } from './postjob/postjob.component';
-import { ManagejobsComponent } from './managejobs/managejobs.component';
+import type { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 
-  // JOB SEEKER FLOW
-  { path: 'jobs', component: JoblistComponent },
-  { path: 'jobs/:id', component: JobdetailComponent },
-  { path: 'apply/:id', component: ApplyformComponent },
-  { path: 'applications', component: ApplicationsComponent },
+  // Auth
+  { path: 'login', loadComponent: () => import('./login/login.component').then(m => m.LoginComponent) },
+  { path: 'signup', loadComponent: () => import('./signup/signup.component').then(m => m.SignupComponent) },
 
-  // EMPLOYER FLOW
-  { path: 'post-job', component: PostjobComponent },
-  { path: 'post-job/:id', component: PostjobComponent },
-  { path: 'manage-jobs', component: ManagejobsComponent }
+  // Dashboard + Home
+  { path: 'dashboard', loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent) },
+  { path: 'home', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent) },
+
+  // Jobseeker flow
+  { path: 'jobs', loadComponent: () => import('./joblist/joblist.component').then(m => m.JoblistComponent) },
+  { path: 'jobs/:id', loadComponent: () => import('./jobdetail/jobdetail.component').then(m => m.JobdetailComponent) },
+  { path: 'apply/:id', loadComponent: () => import('./applyform/applyform.component').then(m => m.ApplyformComponent) },
+  { path: 'applications', loadComponent: () => import('./applications/applications.component').then(m => m.ApplicationsComponent) },
+
+  // Employer flow
+  { path: 'post-job', loadComponent: () => import('./postjob/postjob.component').then(m => m.PostjobComponent) },
+  { path: 'post-job/:id', loadComponent: () => import('./postjob/postjob.component').then(m => m.PostjobComponent) },
+  { path: 'manage-jobs', loadComponent: () => import('./managejobs/managejobs.component').then(m => m.ManagejobsComponent) },
+
+  // Alt andet → dashboard
+  { path: '**', redirectTo: 'dashboard' }
 ];

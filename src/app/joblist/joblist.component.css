@@ -1,31 +1,42 @@
-.search-input {
-    width: 100%;
-    max-width: 400px;
-    padding: 8px;
-    margin: 10px 0 20px;
-    font-size: 16px;
-}
-
 .job-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
     padding: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     background-color: #f9f9f9;
+    transition: box-shadow 0.2s ease;
 }
 
-.apply-button,
-.back-button {
-    background-color: #0b1d4e;
-    color: white;
-    padding: 8px 16px;
+.job-card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.job-card h2 {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.job-card p {
+    margin: 6px 0;
+}
+
+.job-card button {
+    background-color: #007bff;
     border: none;
+    color: white;
+    padding: 8px 12px;
     border-radius: 6px;
     cursor: pointer;
-    margin-top: 10px;
 }
 
-.apply-button:hover,
-.back-button:hover {
-    background-color: #1a2c6b;
+.job-card button:hover {
+    background-color: #0056b3;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
 }
