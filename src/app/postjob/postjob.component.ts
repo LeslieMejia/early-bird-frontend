@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-import { Job } from '../../models/job.model';
+import { JobStatus } from '../../models/job.model';
 import { JobService } from '../services/job.service';
+
 
 
 @Component({
@@ -29,7 +30,9 @@ export class PostjobComponent implements OnInit {
       company: [''],
       location: [''],
       description: [''],
-      type: ['']
+      category: [''],
+      salaryrange: [''],
+      status: [JobStatus.active] // ✅ correct enum usage
     });
   }
 

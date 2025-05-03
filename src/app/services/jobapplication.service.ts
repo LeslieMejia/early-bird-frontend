@@ -1,8 +1,19 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { JobApplication } from '../../models/job-application.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobapplicationService {
-  constructor() { }
+  private apiUrl = '/api/jobapplication';
+
+  constructor(private http: HttpClient) { }
+
+  create(application: JobApplication): Observable<JobApplication> {
+    return this.http.post<JobApplication>(this.apiUrl, application);
+  }
+
+  // Add more methods as needed
 }

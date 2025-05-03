@@ -13,8 +13,19 @@
     <label>Description:</label>
     <textarea formControlName="description"></textarea>
 
-    <label>Type:</label>
-    <input type="text" formControlName="type" />
+    <label>Category:</label>
+    <input type="text" formControlName="category" />
+
+    <label>Status:</label>
+    <select formControlName="status">
+      <option value="active">Active</option>
+      <option value="expired">Expired</option>
+      <option value="closed">Closed</option>
+    </select>
+
+    <label>Salary Range:</label>
+    <input type="text" formControlName="salaryRange" />
+
 
     <button type="submit">{{ editing ? 'Update' : 'Post' }}</button>
 </form>

@@ -1,7 +1,9 @@
 export interface JobApplication {
-    id?: number;
+    id?: number;               // Optional, assigned by backend
     jobId: number;
     jobseekerId: number;
-    resumeContent: string;
+    resumeId: number;          // ✅ Required to match DB schema
     coverLetter: string;
-}
+    status: string;            // E.g., 'pending'
+  }
+  

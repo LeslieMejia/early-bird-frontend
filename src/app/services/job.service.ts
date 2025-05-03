@@ -5,8 +5,9 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
-import { Job } from '../../models/job.model';
+import { Job, JobStatus } from '../../models/job.model';
 import { JobApplication } from '../../models/job-application.model';
+
 
 // Two sample jobs for your mock
 const sampleJobs: Job[] = [
@@ -17,10 +18,10 @@ const sampleJobs: Job[] = [
     company: 'CoolStartup',
     description: 'Build great UIs',
     location: 'Copenhagen',
-    salaryRange: '45k-55k',
-    category: 'IT',
-    status: 'active',
-    type: 'Full-time'
+    salaryRange: 'DKK 45,000–55,000',
+    category: 'Full-time',
+    status: JobStatus.active // ✅ enum value
+
   },
   {
     id: 2,
@@ -29,10 +30,10 @@ const sampleJobs: Job[] = [
     company: 'TechCorp',
     description: 'Design robust APIs',
     location: 'Aarhus',
-    salaryRange: '50k-65k',
-    category: 'IT',
-    status: 'active',
-    type: 'Part-time'
+    salaryRange: 'DKK 50,000–65,000',
+    category: 'Part-time',
+    status: JobStatus.active // ✅ enum value
+
   }
 ];
 

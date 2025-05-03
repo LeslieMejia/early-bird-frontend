@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     // Sætter midlertidigt rollen, så du kan teste begge views
-    this.userRole = 'jobseeker'; // skift til 'employer' for at teste employer‐visningen
+    this.userRole = 'employer'; // skift til 'employer' for at teste employer‐visningen
     // Senere: this.userRole = localStorage.getItem('userRole') || '';
   }
 }
