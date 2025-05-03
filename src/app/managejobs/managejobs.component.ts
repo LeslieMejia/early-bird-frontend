@@ -16,27 +16,31 @@ export class ManagejobsComponent implements OnInit {
   jobs: Job[] = [];
   applications: { [jobId: number]: JobApplication[] } = {};
   expandedJobId: number | null = null;
+  private employerId = 8; // udskift til dynamisk login-bruger senere
 
   constructor(private jobService: JobService, private router: Router) { }
 
   ngOnInit(): void {
-    this.jobService.getJobs().subscribe((jobs) => {
-      this.jobs = jobs;
-      for (const job of jobs) {
-        this.jobService.getApplicationsByJobId(job.id).subscribe((apps) => {
-          this.applications[job.id] = apps;
-        });
+    this.jobService.getJobs().subscribe(allJobs => {
+      this.jobs = allJobs.filter(j => j.employerId === this.employerId);
+      for (const job of this.jobs) {
+        this.jobService.getApplicationsByJobId(job.id)
+          .subscribe(apps => this.applications[job.id] = apps);
       }
     });
   }
 
   editJob(id: number): void {
-    this.router.navigate(['/postjob', id]);
+    this.router.navigate(['/post-job', id]);
   }
 
   deleteJob(id: number): void {
     this.jobService.deleteJob(id).subscribe(() => {
-      this.jobs = this.jobs.filter((j) => j.id !== id);
+      this.jobs = this.jobs.filter(j => j.id !== id);
+      delete this.applications[id];
+      if (this.expandedJobId === id) {
+        this.expandedJobId = null;
+      }
     });
   }
 

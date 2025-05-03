@@ -1,7 +1,9 @@
+// src/app/jobdetail/jobdetail.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { JobService } from '../services/job.service';
+import { Job } from '../../models/job.model';
 
 @Component({
   selector: 'app-jobdetail',
@@ -11,15 +13,22 @@ import { JobService } from '../services/job.service';
   styleUrls: ['./jobdetail.component.css']
 })
 export class JobdetailComponent implements OnInit {
-  job: any;
+  job?: Job;
 
-  constructor(private router: Router, private jobService: JobService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private jobService: JobService
+  ) { }
 
   ngOnInit(): void {
-    this.job = this.jobService.getById(1); // You can update the ID logic later
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.jobService.getById(id)
+      .subscribe(j => this.job = j);
   }
 
   apply(): void {
+    if (!this.job) return;
     this.router.navigate(['/apply', this.job.id]);
   }
 }

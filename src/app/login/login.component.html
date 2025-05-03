@@ -1,10 +1,18 @@
-<div class="login-wrapper">
-  <h2 class="login-title">Login</h2>
-  <form class="login-form">
-    <input type="email" placeholder="Email" class="login-input" />
-    <input type="password" placeholder="Password" class="login-input" />
-    <button type="submit" class="login-button">Login</button>
-  </form>
-</div>
+<!-- login.component.html -->
+<div class="page-wrapper">
+  <div class="card">
+    <h2>Login</h2>
+    <form (ngSubmit)="onSubmit()" #f="ngForm">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" [(ngModel)]="email" required />
 
-<button routerLink="/">Back to frontpage</button>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" [(ngModel)]="password" required />
+
+      <button class="btn btn-primary" type="submit" [disabled]="!f.valid">
+        Login
+      </button>
+    </form>
+    <button routerLink="/signup" class="btn btn-outline">Sign Up</button>
+  </div>
+</div>

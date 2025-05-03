@@ -1,13 +1,22 @@
-<div class="apply-wrapper">
-    <h2>Apply to {{ job?.title }}</h2>
+<div class="apply-card">
+    <h1 class="apply-title">Apply to {{ job?.title }}</h1>
 
-    <label>Resume Text:</label>
-    <textarea [(ngModel)]="resumeText" placeholder="Write your resume here"></textarea>
+    <form (ngSubmit)="submitApplication()" class="apply-form">
+        <div class="form-group">
+            <label for="resume" class="form-label">Resume Text</label>
+            <textarea id="resume" name="resume" [(ngModel)]="resumeText" placeholder="Write your resume here"
+                class="form-textarea" required></textarea>
+        </div>
 
-    <label>Cover Letter:</label>
-    <textarea [(ngModel)]="coverLetter" placeholder="Write your cover letter here"></textarea>
+        <div class="form-group">
+            <label for="coverLetter" class="form-label">Cover Letter</label>
+            <textarea id="coverLetter" name="coverLetter" [(ngModel)]="coverLetter"
+                placeholder="Write your cover letter here" class="form-textarea" required></textarea>
+        </div>
 
-    <button (click)="submitApplication()" class="submit-btn">Submit</button>
-
-    <a routerLink="/jobs" class="back-link">← Back to Job List</a>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Submit Application</button>
+            <a routerLink="/jobs" class="btn btn-link">← Back to Job List</a>
+        </div>
+    </form>
 </div>
