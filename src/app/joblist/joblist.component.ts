@@ -1,9 +1,10 @@
+// src/app/joblist/joblist.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { JobService } from '../services/job.service';
-import { Job } from '../../models/job.model';  // ← Bemærk dobbelt “../”
+import { Job } from '../../models/job.model';
 
 @Component({
   selector: 'app-joblist',
@@ -21,9 +22,9 @@ export class JoblistComponent {
   }
 
   get filteredJobs(): Job[] {
-    const t = this.searchTerm.trim().toLowerCase();
-    return t
-      ? this.jobs.filter(j => j.title.toLowerCase().includes(t))
+    const term = this.searchTerm.trim().toLowerCase();
+    return term
+      ? this.jobs.filter(j => j.title.toLowerCase().includes(term))
       : this.jobs;
   }
 }
