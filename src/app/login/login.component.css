@@ -24,13 +24,19 @@ label {
   margin-bottom: 0.25rem;
 }
 
-input {
+input,
+select {
   width: 100%;
   padding: 0.75rem;
-  margin-bottom: 1.25rem;
   border: 1px solid #ccd3df;
   border-radius: 0.5rem;
   font-size: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+select {
+  /* ekstra luft under dropdown */
+  margin-bottom: 1.5rem;
 }
 
 .btn {
@@ -42,10 +48,13 @@ input {
   font-size: 1rem;
 }
 
+/* Login-knap */
 .btn-primary {
   background-color: #12275e;
   color: white;
   width: 100%;
+  margin-top: 0.5rem;
+  /* skaber luft over knappen */
 }
 
 .btn-outline {
