@@ -1,26 +1,39 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [FormsModule],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  fullName = '';
-  email = '';
-  phone = '';
-  role = '';
-  password = '';
+  user = {
+    name: '',
+    email: '',
+    phone: '',
+    role: '',
+    passwordHash: ''
+  };
   confirmPassword = '';
 
-  constructor(private router: Router) { }
+  constructor(private userService: UserService, private router: Router) {}
 
   onSubmit() {
-    this.router.navigate(['/dashboard']);
+    if (this.user.passwordHash !== this.confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    this.userService.createUser(this.user).subscribe({
+      next: () => this.router.navigate(['/dashboard']),
+      error: (err) => {
+        console.error('Signup failed:', err);
+        alert('Signup failed. Please try again.');
+      }
+    });
   }
 }

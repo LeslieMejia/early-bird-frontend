@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,23 @@ import { RouterModule, Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email = '';
-  password = '';
+  user = {
+    email: '',
+    password: ''
+  };
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userService: UserService) {}
 
   onSubmit() {
-    this.router.navigate(['/dashboard']);
+    this.userService.login(this.user).subscribe({
+      next: (res) => {
+        console.log('Login successful:', res);
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        console.error('Login failed:', err);
+        alert('Invalid credentials');
+      }
+    });
   }
 }
