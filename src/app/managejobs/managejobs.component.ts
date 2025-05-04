@@ -24,8 +24,8 @@ export class ManagejobsComponent implements OnInit {
     this.jobService.getJobs().subscribe(allJobs => {
       this.jobs = allJobs.filter(j => j.employerId === this.employerId);
       for (const job of this.jobs) {
-        this.jobService.getApplicationsByJobId(job.id)
-          .subscribe(apps => this.applications[job.id] = apps);
+        this.jobService.getApplicationsByJobId(job.id!)
+          .subscribe(apps => this.applications[job.id!] = apps);
       }
     });
   }

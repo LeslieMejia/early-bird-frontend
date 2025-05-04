@@ -8,8 +8,6 @@ import { HttpClient } from '@angular/common/http';
 import { Job, JobStatus } from '../../models/job.model';
 import { JobApplication } from '../../models/job-application.model';
 
-
-// Two sample jobs for your mock
 const sampleJobs: Job[] = [
   {
     id: 1,
@@ -20,8 +18,7 @@ const sampleJobs: Job[] = [
     location: 'Copenhagen',
     salaryRange: 'DKK 45,000–55,000',
     category: 'Full-time',
-    status: JobStatus.active // ✅ enum value
-
+    status: JobStatus.active
   },
   {
     id: 2,
@@ -30,10 +27,9 @@ const sampleJobs: Job[] = [
     company: 'TechCorp',
     description: 'Design robust APIs',
     location: 'Aarhus',
-    salaryRange: 'DKK 50,000–65,000',
+    salaryRange: 'DKK 30,000–45,000',
     category: 'Part-time',
-    status: JobStatus.active // ✅ enum value
-
+    status: JobStatus.active
   }
 ];
 
@@ -41,12 +37,13 @@ const sampleJobs: Job[] = [
   providedIn: 'root'
 })
 export class JobService {
-  private apiUrl = 'https://leslies-backend.example.com/api';
+  private baseUrl: string = 'http://localhost:5147/api/job';
+
   constructor(private http: HttpClient) { }
 
   /** Fetch all jobs; fallback to sampleJobs on error */
   getJobs(): Observable<Job[]> {
-    return this.http.get<Job[]>(`${this.apiUrl}/jobs`).pipe(
+    return this.http.get<Job[]>(`${this.baseUrl}`).pipe(
       catchError(err => {
         console.warn('getJobs() failed, falling back to sampleJobs', err);
         return of(sampleJobs);
@@ -56,7 +53,7 @@ export class JobService {
 
   /** Fetch one job by ID; fallback to sampleJobs on error */
   getById(id: number): Observable<Job> {
-    return this.http.get<Job>(`${this.apiUrl}/jobs/${id}`).pipe(
+    return this.http.get<Job>(`${this.baseUrl}/${id}`).pipe(
       catchError(err => {
         console.warn(`getById(${id}) failed, falling back to sampleJobs`, err);
         const job = sampleJobs.find(j => j.id === id)!;
@@ -65,27 +62,27 @@ export class JobService {
     );
   }
 
-  /** Create a new job (mock) */
+  /** Create a new job (mock for now) */
   createJob(job: Job): Observable<any> {
     console.log('Mock createJob()', job);
     return of({ success: true });
   }
 
-  /** Update an existing job (mock) */
+  /** Update an existing job (mock for now) */
   updateJob(id: number, job: Job): Observable<any> {
     console.log('Mock updateJob()', id, job);
     return of({ success: true });
   }
 
-  /** Delete a job (mock) */
+  /** Delete a job (mock for now) */
   deleteJob(id: number): Observable<any> {
     console.log('Mock deleteJob()', id);
     return of({ success: true });
   }
 
-  /** Submit an application; fallback to console.log on error */
+  /** Submit an application */
   submitApplication(app: JobApplication): Observable<any> {
-    return this.http.post(`${this.apiUrl}/applications`, app).pipe(
+    return this.http.post(`${this.baseUrl}/applications`, app).pipe(
       tap(() => console.log('submitApplication() → real API call')),
       catchError(err => {
         console.warn('submitApplication() failed, logging locally', err);
@@ -95,9 +92,9 @@ export class JobService {
     );
   }
 
-  /** Fetch applications for a specific job; fallback to empty array on error */
+  /** Fetch applications for a specific job */
   getApplicationsByJobId(jobId: number): Observable<JobApplication[]> {
-    return this.http.get<JobApplication[]>(`${this.apiUrl}/applications/job/${jobId}`).pipe(
+    return this.http.get<JobApplication[]>(`${this.baseUrl}/applications/job/${jobId}`).pipe(
       catchError(err => {
         console.warn(`getApplicationsByJobId(${jobId}) failed, returning []`, err);
         return of([]);

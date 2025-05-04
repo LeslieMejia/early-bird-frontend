@@ -4,11 +4,14 @@
   <div *ngFor="let job of jobs" class="job-card">
     <h3>{{ job.title }}</h3>
     <p><strong>Location:</strong> {{ job.location }}</p>
+    <p><strong>Category:</strong> {{ job.category }}</p>
+    <p><strong>Status:</strong> {{ job.status }}</p>
+    <p><strong>Salary Range:</strong> {{ job.salaryRange }}</p>
 
     <div class="actions">
-      <button (click)="editJob(job.id)" class="btn">Edit</button>
-      <button (click)="deleteJob(job.id)" class="btn delete">Delete</button>
-      <button (click)="toggleApplications(job.id)" class="btn view">
+      <button (click)="editJob(job.id!)" class="btn">Edit</button>
+      <button (click)="deleteJob(job.id!)" class="btn delete">Delete</button>
+      <button (click)="toggleApplications(job.id!)" class="btn view">
         {{ expandedJobId === job.id ? 'Hide Applicants' : 'View Applicants' }}
       </button>
     </div>

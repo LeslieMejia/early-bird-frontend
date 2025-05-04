@@ -5,5 +5,6 @@ export interface JobApplication {
     resumeId: number;          // ✅ Required to match DB schema
     coverLetter: string;
     status: string;            // E.g., 'pending'
+    resumeContent?: string; 
   }
   

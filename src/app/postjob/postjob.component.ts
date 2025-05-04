@@ -31,7 +31,7 @@ export class PostjobComponent implements OnInit {
       location: [''],
       description: [''],
       category: [''],
-      salaryrange: [''],
+      salaryRange: [''],
       status: [JobStatus.active] // ✅ correct enum usage
     });
   }
@@ -41,13 +41,14 @@ export class PostjobComponent implements OnInit {
     if (idParam) {
       this.editing = true;
       this.jobId = +idParam;
-      const job = this.jobService.getById(this.jobId);
-      if (job) {
-        this.jobForm.patchValue(job);
-      }
+      this.jobService.getById(this.jobId).subscribe(job => {
+        if (job) {
+          this.jobForm.patchValue(job);
+        }
+      });
     }
   }
-
+  
   submit(): void {
     if (this.editing && this.jobId !== null) {
       this.jobService.updateJob(this.jobId, this.jobForm.value);

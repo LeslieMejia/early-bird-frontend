@@ -8,7 +8,8 @@ import { JobApplication } from '../../models/job-application.model';
 })
 export class JobapplicationService {
   private apiUrl = '/api/jobapplication';
-
+  private baseUrl: string = 'http://localhost:5147/api/jobapplication';
+  
   constructor(private http: HttpClient) { }
 
   create(application: JobApplication): Observable<JobApplication> {
