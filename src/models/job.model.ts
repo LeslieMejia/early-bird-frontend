@@ -13,5 +13,5 @@ export interface Job {
   location: string;
   salaryRange: string;
   category: string;
-  status: JobStatus; // <-- ENUM used here
+  status: JobStatus; // ENUM
 }

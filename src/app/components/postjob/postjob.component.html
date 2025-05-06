@@ -1,0 +1,64 @@
+<!-- src/app/components/postjob/postjob.component.html -->
+
+<h2>{{ editing ? 'Edit Job' : 'Post a New Job' }}</h2>
+
+<!-- Template-driven form using ngModel -->
+<form #jobForm="ngForm" (ngSubmit)="submit()">
+
+  <!-- Job Title (required) -->
+  <label>Job Title:</label>
+  <input type="text" name="title" [(ngModel)]="job.title" required #title="ngModel" />
+  <div *ngIf="title.invalid && title.touched" class="error">Title is required</div>
+
+  <!-- Company (required) -->
+  <label>Company:</label>
+  <input type="text" name="company" [(ngModel)]="job.company" required #company="ngModel" />
+  <div *ngIf="company.invalid && company.touched" class="error">Company is required</div>
+
+  <!-- Location (required) -->
+  <label>Location:</label>
+  <input type="text" name="location" [(ngModel)]="job.location" required #location="ngModel" />
+  <div *ngIf="location.invalid && location.touched" class="error">Location is required</div>
+
+  <!-- Description -->
+  <label>Description:</label>
+  <textarea name="description" [(ngModel)]="job.description" #description="ngModel"></textarea>
+
+  <!-- Category (required) -->
+  <label>Category: <small>(e.g. Full-time, Part-time)</small></label>
+  <input type="text" name="category" [(ngModel)]="job.category" required #category="ngModel" />
+  <div *ngIf="category.invalid && category.touched" class="error">
+    Category is required (like "Full-time" or "Part-time")
+  </div>
+
+  <!-- Status (dropdown) -->
+  <label>Status:</label>
+  <select name="status" [(ngModel)]="job.status" required #status="ngModel">
+    <option [ngValue]="'active'">Active</option>
+    <option [ngValue]="'expired'">Expired</option>
+    <option [ngValue]="'closed'">Closed</option>
+  </select>
+
+  <!-- Salary Range -->
+  <label>Salary Range:</label>
+  <input type="text" name="salaryRange" [(ngModel)]="job.salaryRange" #salaryRange="ngModel" />
+
+  <!-- Submit Button -->
+  <button type="submit" [disabled]="jobForm.invalid">
+    {{ editing ? 'Update Job' : 'Post Job' }}
+  </button>
+
+</form>
+
+<a routerLink="/manage-jobs" class="back-button">← Back to Manage Jobs</a>
+
+<!-- 
+  Summary of Changes (Template):
+
+  ✅ Switched to template-driven forms using [(ngModel)] for two-way data binding.
+  ✅ Applied basic field validation using Angular template reference variables (e.g. #title="ngModel").
+  ✅ Required fields (title, company, location, category) now show error messages when invalid and touched.
+  ✅ Submit button is disabled until the form is valid.
+  ✅ Instructions added for fields like "Category" to clarify expected input (e.g., "Full-time").
+  ✅ Matches professor's example more closely by avoiding Reactive Forms.
+-->

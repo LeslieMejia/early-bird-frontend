@@ -15,6 +15,9 @@ export class JobapplicationService {
   create(application: JobApplication): Observable<JobApplication> {
     return this.http.post<JobApplication>(this.apiUrl, application);
   }
-
+  getByJobseekerId(jobseekerId: number): Observable<JobApplication[]> {
+    return this.http.get<JobApplication[]>(`${this.baseUrl}/jobseeker/${jobseekerId}`);
+  }
+  
   // Add more methods as needed
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { JobService } from '../services/job.service';
-import { Job } from '../../models/job.model';
-import { JobApplication } from '../../models/job-application.model';
+import { JobService } from '../../services/job.service';
+import { Job } from '../../../models/job.model';
+import { JobApplication } from '../../../models/job-application.model';
 
 @Component({
   selector: 'app-managejobs',

@@ -1,10 +1,6 @@
-// src/app/services/resume.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-// Correct path: go two levels up from services to reach src/models
 import { Resume } from '../../models/resume.model';
 
 @Injectable({

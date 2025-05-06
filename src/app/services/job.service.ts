@@ -1,10 +1,7 @@
-// src/app/services/job.service.ts
-
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-
 import { Job, JobStatus } from '../../models/job.model';
 import { JobApplication } from '../../models/job-application.model';
 

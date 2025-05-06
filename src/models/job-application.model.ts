@@ -1,10 +1,17 @@
+export enum ApplicationStatus {
+  Applied = 'applied',
+  Reviewed = 'reviewed',
+  Interview = 'interview',
+  Rejected = 'rejected'
+}
+
 export interface JobApplication {
-    id?: number;               // Optional, assigned by backend
-    jobId: number;
-    jobseekerId: number;
-    resumeId: number;          // ✅ Required to match DB schema
-    coverLetter: string;
-    status: string;            // E.g., 'pending'
-    resumeContent?: string; 
-  }
-  
+  id?: number;
+  jobId: number;
+  jobseekerId: number;
+  resumeId: number;
+  coverLetter: string;
+  status: ApplicationStatus; //Enum
+  resumeContent?: string;
+  jobTitle?: string; // ✅ Add this line
+}
