@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
+
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -17,15 +18,22 @@ export class LoginComponent {
     password: ''
   };
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService) { }
 
-  onSubmit() {
+  onSubmit(form: NgForm) {
+    // 1) prevent submission if validation fails
+    if (form.invalid) {
+      alert('Please enter both email and password correctly.');
+      return;
+    }
+
+    // 2) proceed with login
     this.userService.login(this.user).subscribe({
-      next: (res) => {
+      next: res => {
         console.log('Login successful:', res);
         this.router.navigate(['/dashboard']);
       },
-      error: (err) => {
+      error: err => {
         console.error('Login failed:', err);
         alert('Invalid credentials');
       }

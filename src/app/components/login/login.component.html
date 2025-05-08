@@ -1,32 +1,37 @@
 <div class="page-wrapper">
   <div class="card">
     <h2>Login</h2>
-    <form (ngSubmit)="onSubmit()" #f="ngForm">
-      <label for="email">Email</label>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        [(ngModel)]="user.email"
-        required
-      />
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required [(ngModel)]="user.email" #emailCtrl="ngModel"
+          class="form-control" placeholder="you@example.com" />
+        <div *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)" class="error">
+          <small *ngIf="emailCtrl.errors?.['required']">Email is required</small>
+          <small *ngIf="emailCtrl.errors?.['email']">Enter a valid email</small>
+        </div>
+      </div>
 
-      <label for="password">Password</label>
-      <input
-        id="password"
-        name="password"
-        type="password"
-        [(ngModel)]="user.password"
-        required
-      />
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required minlength="6" [(ngModel)]="user.password"
+          #pwdCtrl="ngModel" class="form-control" placeholder="••••••••" />
+        <div *ngIf="pwdCtrl.invalid && (pwdCtrl.dirty || pwdCtrl.touched)" class="error">
+          <small *ngIf="pwdCtrl.errors?.['required']">Password is required</small>
+          <small *ngIf="pwdCtrl.errors?.['minlength']">At least 6 characters</small>
+        </div>
+      </div>
 
-      <button class="btn btn-primary" type="submit" [disabled]="!f.valid">
-        Login
+      <!-- Submit -->
+      <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+        Log In
       </button>
     </form>
 
-    <button routerLink="/signup" class="btn btn-outline">
-      Sign Up
+    <button routerLink="/signup" class="btn btn-link mt-3">
+      Don’t have an account? Sign Up
     </button>
   </div>
 </div>
