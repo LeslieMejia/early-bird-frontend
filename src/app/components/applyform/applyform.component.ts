@@ -21,7 +21,7 @@ export class ApplyformComponent implements OnInit {
   job: Job | undefined;
   resumeText = '';
   coverLetter = '';
-  jobseekerId = 10; // TODO: wire up real user ID once auth is in place
+  jobseekerId = 10;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,8 +43,7 @@ export class ApplyformComponent implements OnInit {
 
     this.jobService.getById(jobId).subscribe({
       next: job => (this.job = job),
-      error: err => {
-        console.error('❌ Failed to load job:', err);
+      error: () => {
         alert('Job not found.');
         this.router.navigate(['/jobs']);
       }
@@ -52,49 +51,36 @@ export class ApplyformComponent implements OnInit {
   }
 
   submitApplication(form: NgForm): void {
-    // 1) Block if form validations fail
-    if (form.invalid) {
+    if (form.invalid || !this.job) {
       alert('Please fill in all required fields correctly.');
       return;
     }
 
-    // 2) Ensure we have a job context
-    if (!this.job || this.job.id === undefined) {
-      alert('Invalid job context.');
-      return;
-    }
+    const applicationPayload: JobApplication = {
+      jobId: this.job.id!,
+      jobseekerId: this.jobseekerId,
+      resumeId: 0, // will be set after resume creation
+      coverLetter: this.coverLetter,
+      status: ApplicationStatus.Interview
+    };
 
-    // capture id with non-null assertion
-    const validJobId: number = this.job.id!;
-
-    // 3) Create resume record
     this.resumeService.create({
       jobseekerId: this.jobseekerId,
       content: this.resumeText.trim()
     }).subscribe({
       next: createdResume => {
-        // 4) Build and submit application
-        const application: JobApplication = {
-          jobId: validJobId,
-          jobseekerId: this.jobseekerId,
-          resumeId: createdResume.id,
-          coverLetter: this.coverLetter,
-          status: ApplicationStatus.Interview
-        };
-
-        this.jobApplicationService.create(application).subscribe({
+        applicationPayload.resumeId = createdResume.id;
+        this.jobApplicationService.create(applicationPayload).subscribe({
           next: () => {
             alert('✅ Application submitted!');
             this.router.navigate(['/applications']);
           },
-          error: err => {
-            console.error('❌ Application submission failed:', err);
+          error: () => {
             alert('Could not submit application.');
           }
         });
       },
-      error: err => {
-        console.error('❌ Resume creation failed:', err);
+      error: () => {
         alert('Failed to create resume.');
       }
     });

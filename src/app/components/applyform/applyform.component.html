@@ -1,54 +1,40 @@
 <div class="apply-card">
-    <h1 class="apply-title">
-        Apply to {{ job?.title }}
-    </h1>
+    <h1 class="apply-title">Apply to {{ job?.title }}</h1>
 
-    <form #applyForm="ngForm" (ngSubmit)="submitApplication(applyForm)" class="apply-form" novalidate>
-        <!-- Resume Text -->
-        <div class="form-group">
-            <label for="resume" class="form-label">
-                Resume Text
-            </label>
-            <textarea id="resume" name="resumeText" required minlength="20" [(ngModel)]="resumeText"
-                #resumeCtrl="ngModel" placeholder="Write your resume here" class="form-textarea"></textarea>
-            <div *ngIf="
-            resumeCtrl.invalid &&
-            (resumeCtrl.dirty || resumeCtrl.touched)
-          " class="error">
-                <small *ngIf="resumeCtrl.errors?.['required']">
-                    Resume is required
-                </small>
-                <small *ngIf="resumeCtrl.errors?.['minlength']">
-                    At least 20 characters
-                </small>
+    <ng-container *ngIf="job; else loading">
+        <form #applyForm="ngForm" (ngSubmit)="submitApplication(applyForm)" class="apply-form" novalidate>
+            <!-- Resume Text -->
+            <div class="form-group">
+                <label for="resume">Resume Text</label>
+                <textarea id="resume" name="resumeText" required minlength="20" [(ngModel)]="resumeText"
+                    #resumeCtrl="ngModel" placeholder="Write your resume here" class="form-textarea"></textarea>
+                <div *ngIf="resumeCtrl.invalid && (resumeCtrl.dirty || resumeCtrl.touched)" class="error">
+                    <small *ngIf="resumeCtrl.errors?.['required']">Resume is required</small>
+                    <small *ngIf="resumeCtrl.errors?.['minlength']">At least 20 characters</small>
+                </div>
             </div>
-        </div>
 
-        <!-- Cover Letter -->
-        <div class="form-group">
-            <label for="coverLetter" class="form-label">
-                Cover Letter
-            </label>
-            <textarea id="coverLetter" name="coverLetter" required [(ngModel)]="coverLetter" #coverCtrl="ngModel"
-                placeholder="Write your cover letter here" class="form-textarea"></textarea>
-            <div *ngIf="
-            coverCtrl.invalid &&
-            (coverCtrl.dirty || coverCtrl.touched)
-          " class="error">
-                <small *ngIf="coverCtrl.errors?.['required']">
-                    Cover letter is required
-                </small>
+            <!-- Cover Letter -->
+            <div class="form-group">
+                <label for="coverLetter">Cover Letter</label>
+                <textarea id="coverLetter" name="coverLetter" required [(ngModel)]="coverLetter" #coverCtrl="ngModel"
+                    placeholder="Write your cover letter here" class="form-textarea"></textarea>
+                <div *ngIf="coverCtrl.invalid && (coverCtrl.dirty || coverCtrl.touched)" class="error">
+                    <small *ngIf="coverCtrl.errors?.['required']">Cover letter is required</small>
+                </div>
             </div>
-        </div>
 
-        <!-- Actions -->
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary" [disabled]="applyForm.invalid">
-                Submit Application
-            </button>
-            <a routerLink="/jobs" class="btn btn-link">
-                ← Back to Job List
-            </a>
-        </div>
-    </form>
+            <!-- Actions -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" [disabled]="applyForm.invalid || !job">
+                    Submit Application
+                </button>
+                <a routerLink="/jobs" class="btn btn-link">← Back to Job List</a>
+            </div>
+        </form>
+    </ng-container>
+
+    <ng-template #loading>
+        <p>Loading job details…</p>
+    </ng-template>
 </div>
