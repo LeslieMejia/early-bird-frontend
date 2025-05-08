@@ -1,3 +1,4 @@
+// src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
@@ -14,8 +15,8 @@ export class AuthService {
     private currentUserSubject = new BehaviorSubject<User | null>(null);
     public currentUser$ = this.currentUserSubject.asObservable();
 
-    login(email: string, password: string): Observable<User> {
-        const role: UserRole = email.includes('emp') ? 'employer' : 'jobseeker';
+    /** Nu med role-parameter */
+    login(email: string, password: string, role: UserRole): Observable<User> {
         const user: User = { id: 1, name: email.split('@')[0], email, role };
         this.currentUserSubject.next(user);
         return of(user);
@@ -29,5 +30,9 @@ export class AuthService {
 
     logout() {
         this.currentUserSubject.next(null);
+    }
+
+    get role(): UserRole | null {
+        return this.currentUserSubject.value?.role || null;
     }
 }
