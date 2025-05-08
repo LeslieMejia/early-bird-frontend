@@ -10,7 +10,7 @@ export class ResumeService {
   private apiUrl = '/api/resumes';
   private baseUrl: string = 'http://localhost:5147/api/resume';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { } //Declare dependecy 
 
   /** Get all resumes for a specific jobseeker */
   getAll(jobseekerId: number): Observable<Resume[]> {

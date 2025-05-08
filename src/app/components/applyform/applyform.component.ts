@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { NgForm, FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 import { JobService } from '../../services/job.service';
 import { ResumeService } from '../../services/resume.service';
 import { JobapplicationService } from '../../services/jobapplication.service';
+
 import { Job } from '../../../models/job.model';
-import { JobApplication } from '../../../models/job-application.model';
-import { ApplicationStatus } from '../../../models/job-application.model';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { JobApplication, ApplicationStatus } from '../../../models/job-application.model';
 
 @Component({
   selector: 'app-applyform',
   standalone: true,
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './applyform.component.html',
-  styleUrls: ['./applyform.component.css'],
-  imports: [CommonModule, RouterModule, FormsModule]
+  styleUrls: ['./applyform.component.css']
 })
 export class ApplyformComponent implements OnInit {
   job: Job | undefined;
-  coverLetter = '';
   resumeText = '';
-  jobseekerId = 10; // TODO: Replace this with dynamic value once login is integrated
+  coverLetter = '';
+  jobseekerId = 10; // TODO: wire up real user ID once auth is in place
 
   constructor(
     private route: ActivatedRoute,
@@ -28,50 +29,57 @@ export class ApplyformComponent implements OnInit {
     private jobService: JobService,
     private resumeService: ResumeService,
     private jobApplicationService: JobapplicationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    const jobIdParam = this.route.snapshot.paramMap.get('id');
-    const jobId = jobIdParam ? Number(jobIdParam) : null;
+    const idParam = this.route.snapshot.paramMap.get('id');
+    const jobId = idParam ? Number(idParam) : null;
 
     if (!jobId || isNaN(jobId)) {
       alert('Invalid job ID');
-      this.router.navigate(['/joblist']);
+      this.router.navigate(['/jobs']);
       return;
     }
 
     this.jobService.getById(jobId).subscribe({
-      next: (job) => {
-        this.job = job;
-      },
-      error: (err) => {
+      next: job => (this.job = job),
+      error: err => {
         console.error('❌ Failed to load job:', err);
         alert('Job not found.');
-        this.router.navigate(['/joblist']);
+        this.router.navigate(['/jobs']);
       }
     });
   }
 
-  submitApplication(): void {
-    if (!this.job || !this.job.id || !this.resumeText.trim()) {
-      alert('Please fill out your resume before submitting.');
+  submitApplication(form: NgForm): void {
+    // 1) Block if form validations fail
+    if (form.invalid) {
+      alert('Please fill in all required fields correctly.');
       return;
     }
 
-    const jobId = this.job.id;
+    // 2) Ensure we have a job context
+    if (!this.job || this.job.id === undefined) {
+      alert('Invalid job context.');
+      return;
+    }
 
+    // capture id with non-null assertion
+    const validJobId: number = this.job.id!;
+
+    // 3) Create resume record
     this.resumeService.create({
       jobseekerId: this.jobseekerId,
-      content: this.resumeText
+      content: this.resumeText.trim()
     }).subscribe({
-      next: (createdResume) => {
+      next: createdResume => {
+        // 4) Build and submit application
         const application: JobApplication = {
-          jobId: jobId,
+          jobId: validJobId,
           jobseekerId: this.jobseekerId,
           resumeId: createdResume.id,
           coverLetter: this.coverLetter,
           status: ApplicationStatus.Interview
-
         };
 
         this.jobApplicationService.create(application).subscribe({
@@ -79,13 +87,13 @@ export class ApplyformComponent implements OnInit {
             alert('✅ Application submitted!');
             this.router.navigate(['/applications']);
           },
-          error: (err) => {
+          error: err => {
             console.error('❌ Application submission failed:', err);
             alert('Could not submit application.');
           }
         });
       },
-      error: (err) => {
+      error: err => {
         console.error('❌ Resume creation failed:', err);
         alert('Failed to create resume.');
       }

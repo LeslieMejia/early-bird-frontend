@@ -36,7 +36,7 @@ export class PostjobComponent {
     private jobService: JobService, // Service to handle backend API calls
     private router: Router,         // Used to navigate between routes
     private route: ActivatedRoute   // Used to read route parameters (like job ID)
-  ) {}
+  ) { }
 
   // ngOnInit runs when the component is first loaded
   // Checks if there's an 'id' in the URL → means we are editing a job
@@ -80,7 +80,7 @@ export class PostjobComponent {
         }
       });
 
-    // If posting a new job → create it
+      // If posting a new job → create it
     } else {
       this.jobService.createJob(this.job).subscribe({
         next: () => {
