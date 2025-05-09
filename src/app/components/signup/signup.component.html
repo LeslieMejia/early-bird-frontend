@@ -1,41 +1,126 @@
+<!-- Signup form container -->
 <div class="signup-container">
   <h2>Sign Up</h2>
 
-  <form (ngSubmit)="onSubmit()">
+  <!-- Signup form using Angular's ngForm directive -->
+  <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
+    
+    <!-- Full Name Field -->
     <div class="form-group">
       <label for="name">Full Name</label>
-      <input id="name" type="text" [(ngModel)]="user.name" name="name" required />
+      <input 
+        id="name" 
+        type="text" 
+        name="name" 
+        [(ngModel)]="user.name" 
+        required
+        #name="ngModel" 
+      />
+      <!-- Validation message if name is invalid and touched -->
+      <div *ngIf="name.invalid && name.touched">
+        <small>Full Name is required.</small>
+      </div>
     </div>
 
+    <!-- Email Field -->
     <div class="form-group">
       <label for="email">Email</label>
-      <input id="email" type="email" [(ngModel)]="user.email" name="email" required />
+      <input 
+        id="email" 
+        type="email" 
+        name="email" 
+        [(ngModel)]="user.email" 
+        required
+        email
+        #email="ngModel"
+      />
+      <!-- Validation message if email is invalid and touched -->
+      <div *ngIf="email.invalid && email.touched">
+        <small>Valid Email is required.</small>
+      </div>
     </div>
 
+    <!-- Phone Number Field -->
     <div class="form-group">
       <label for="phone">Phone Number</label>
-      <input id="phone" type="text" [(ngModel)]="user.phone" name="phone" required />
+      <input 
+        id="phone" 
+        type="text" 
+        name="phone" 
+        [(ngModel)]="user.phone" 
+        required
+        pattern="\\d{8,15}" 
+        #phone="ngModel"
+      />
+      <!-- Validation message if phone is invalid and touched -->
+      <div *ngIf="phone.invalid && phone.touched">
+        <small>Phone number must be 8–15 digits.</small>
+      </div>
     </div>
 
+    <!-- Role Selection Dropdown -->
     <div class="form-group">
       <label for="role">Select Role</label>
-      <select id="role" [(ngModel)]="user.role" name="role" required>
+      <select 
+        id="role" 
+        name="role" 
+        [(ngModel)]="user.role" 
+        required
+        #role="ngModel"
+      >
         <option value="" disabled selected>Select Role</option>
         <option value="jobseeker">JobSeeker</option>
         <option value="employer">Employer</option>
       </select>
+      <!-- Validation message if no role is selected -->
+      <div *ngIf="role.invalid && role.touched">
+        <small>Please select a role.</small>
+      </div>
     </div>
 
+    <!-- Password Field -->
     <div class="form-group">
       <label for="password">Password</label>
-      <input id="password" type="password" [(ngModel)]="user.passwordHash" name="password" required />
+      <input 
+        id="password" 
+        type="password" 
+        name="passwordHash" 
+        [(ngModel)]="user.passwordHash" 
+        required
+        minlength="6"
+        #password="ngModel"
+      />
+      <!-- Validation message if password is invalid and touched -->
+      <div *ngIf="password.invalid && password.touched">
+        <small>Password must be at least 6 characters.</small>
+      </div>
     </div>
 
+    <!-- Confirm Password Field -->
     <div class="form-group">
       <label for="confirmPassword">Confirm Password</label>
-      <input id="confirmPassword" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required />
+      <input 
+        id="confirmPassword" 
+        type="password" 
+        name="confirmPassword" 
+        [(ngModel)]="confirmPassword" 
+        required
+        minlength="6"
+        #confirmPasswordField="ngModel"
+      />
+      <!-- Validation message if confirm password is invalid and touched -->
+      <div *ngIf="confirmPasswordField.invalid && confirmPasswordField.touched">
+        <small>Confirm Password is required.</small>
+      </div>
     </div>
 
-    <button type="submit">Sign Up</button>
+    <!-- General form error message if the entire form is invalid -->
+    <div *ngIf="signupForm.invalid">
+      <small style="color: red;">Please correct the errors above before submitting.</small>
+    </div>
+
+    <!-- Submit button disabled if form is invalid -->
+    <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+
   </form>
 </div>
