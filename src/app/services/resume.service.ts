@@ -1,4 +1,3 @@
-// src/app/services/resume.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -6,9 +5,9 @@ import { Resume } from '../../models/resume.model';
 
 @Injectable({ providedIn: 'root' })
 export class ResumeService {
-  private baseUrl = 'http://localhost:5000/api/Resume';
+  private baseUrl = 'http://localhost:5147/api/Resume';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAll(jobseekerId?: number): Observable<Resume[]> {
     const url = jobseekerId
@@ -25,8 +24,8 @@ export class ResumeService {
     return this.http.post<Resume>(this.baseUrl, payload);
   }
 
-  update(id: number, resume: Resume): Observable<Resume> {
-    return this.http.put<Resume>(`${this.baseUrl}/${id}`, resume);
+  update(resume: Resume): Observable<Resume> {
+    return this.http.put<Resume>(this.baseUrl, resume);
   }
 
   delete(id: number): Observable<void> {

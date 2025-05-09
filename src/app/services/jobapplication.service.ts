@@ -6,9 +6,9 @@ import { JobApplication } from '../../models/job-application.model';
 
 @Injectable({ providedIn: 'root' })
 export class JobapplicationService {
-  private baseUrl = 'http://localhost:5000/api/JobApplication';
+  private baseUrl = 'http://localhost:5147/api/JobApplication';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   create(application: JobApplication): Observable<JobApplication> {
     return this.http.post<JobApplication>(this.baseUrl, application);
@@ -22,8 +22,8 @@ export class JobapplicationService {
     return this.http.get<JobApplication[]>(`${this.baseUrl}/jobseeker/${jobseekerId}`);
   }
 
-  update(id: number, application: JobApplication): Observable<JobApplication> {
-    return this.http.put<JobApplication>(`${this.baseUrl}/${id}`, application);
+  update(application: JobApplication): Observable<JobApplication> {
+    return this.http.put<JobApplication>(this.baseUrl, application);
   }
 
   delete(id: number): Observable<void> {

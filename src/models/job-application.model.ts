@@ -15,3 +15,4 @@ export interface JobApplication {
   resumeContent?: string;
   jobTitle?: string; // ✅ Add this line
 }
+

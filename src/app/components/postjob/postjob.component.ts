@@ -1,8 +1,6 @@
-// src/app/components/postjob/postjob.component.ts
-
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Needed for [(ngModel)] two-way binding
+import { FormsModule } from '@angular/forms'; // Needed for template-driven forms
 import { Router, ActivatedRoute } from '@angular/router';
 import { Job, JobStatus } from '../../../models/job.model';
 import { JobService } from '../../services/job.service';
@@ -10,46 +8,50 @@ import { JobService } from '../../services/job.service';
 @Component({
   selector: 'app-postjob',
   standalone: true,
-  imports: [CommonModule, FormsModule], // Template-driven forms need FormsModule
+  imports: [CommonModule, FormsModule],
   templateUrl: './postjob.component.html'
 })
-export class PostjobComponent {
+export class PostjobComponent implements OnInit {
 
-  // This job object is bound to the form using [(ngModel)]
-  // Any updates in the form will reflect here automatically
+  // Two-way bound job object for the form
   job: Job = {
     id: 0,
-    employerId: 8, // Static for now, can be dynamic if you support logins
+    employerId: 8, // Static for now; can come from login/user context later
     title: '',
     company: '',
     location: '',
     description: '',
     category: '',
     salaryRange: '',
-    status: JobStatus.active // Default to 'active'
+    status: JobStatus.active // Default selected option
   };
 
-  editing = false;           // Flag to determine if we’re editing or posting a new job
-  jobId: number | null = null; // Will hold the job ID if we're editing an existing one
+  // Tracks whether we’re creating or editing
+  editing = false;
+
+  // Holds job ID when editing an existing post
+  jobId: number | null = null;
 
   constructor(
-    private jobService: JobService, // Service to handle backend API calls
-    private router: Router,         // Used to navigate between routes
-    private route: ActivatedRoute   // Used to read route parameters (like job ID)
-  ) { }
+    private jobService: JobService, // Handles backend job-related API calls
+    private router: Router,         // Used to navigate on success
+    private route: ActivatedRoute   // Used to extract job ID from route
+  ) {}
 
-  // ngOnInit runs when the component is first loaded
-  // Checks if there's an 'id' in the URL → means we are editing a job
+  /**
+   * Lifecycle hook that runs when the component is initialized.
+   * Checks if the route has an ID — if so, we are editing.
+   * Loads job data from backend to prefill the form.
+   */
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.editing = true;
-      this.jobId = +idParam; // Convert string to number
+      this.jobId = +idParam;
 
-      // Load the existing job data from the backend
       this.jobService.getById(this.jobId).subscribe({
         next: (jobData) => {
-          this.job = jobData; // Populate the form with existing data
+          this.job = jobData; // Prefill form with existing job data
         },
         error: (err) => {
           console.error('Failed to load job:', err);
@@ -59,65 +61,48 @@ export class PostjobComponent {
     }
   }
 
-  // Handles form submission
+  /**
+   * Called when the form is submitted.
+   * Performs validation, then either creates or updates the job.
+   */
   submit(): void {
-    // Basic client-side validation for required fields
-    if (!this.job.title || !this.job.company || !this.job.location) {
+    // Extended validation: check required fields
+    if (
+      !this.job.title ||
+      !this.job.company ||
+      !this.job.location ||
+      !this.job.category ||
+      !this.job.status
+    ) {
       alert('Please fill out all required fields.');
       return;
     }
 
-    // If editing an existing job → update it
+    // Update flow: if job ID is present and editing is true
     if (this.editing && this.jobId !== null) {
       this.jobService.updateJob(this.jobId, this.job).subscribe({
         next: () => {
-          alert('Job updated!');
-          this.router.navigate(['/manage-jobs']); // Redirect after success
+          alert('✅ Job updated successfully!');
+          this.router.navigate(['/manage-jobs']); // Redirect to job list
         },
         error: (err) => {
-          console.error('Update failed:', err);
+          console.error('❌ Update failed:', err);
           alert('Failed to update job.');
         }
       });
 
-      // If posting a new job → create it
+    // Create flow: new job post
     } else {
       this.jobService.createJob(this.job).subscribe({
         next: () => {
-          alert('Job posted!');
-          this.router.navigate(['/manage-jobs']); // Redirect after success
+          alert('✅ Job posted successfully!');
+          this.router.navigate(['/manage-jobs']); // Redirect to job list
         },
         error: (err) => {
-          console.error('Creation failed:', err);
+          console.error('❌ Creation failed:', err);
           alert('Failed to post job.');
         }
       });
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Summary of Changes:
- * 
- * - ✅ Switched from Reactive Forms to Template-Driven Forms using [(ngModel)] for two-way data binding.
- * - ✅ Implemented basic validation on required fields (title, company, location, category).
- * - ✅ Removed FormBuilder and FormGroup logic to simplify and match professor's template-driven style.
- * - ✅ Updated HTML to use #templateRefs for field-level validation (e.g., #title="ngModel").
- * - ✅ Validation errors are shown only when a field is touched and invalid.
- * - ✅ Improved user guidance (e.g., notes under "Category" field to clarify input like "Full-time").
- * - ✅ Added [disabled] to the submit button when the form is invalid.
- */

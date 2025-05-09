@@ -49,6 +49,7 @@ export class ApplyformComponent implements OnInit {
       }
     });
   }
+// method in Angular does exactly what Lecture 08 describes: Sends a model (resume) ➝ receives response ➝ sends job application model using new data.
 
   submitApplication(form: NgForm): void {
     if (form.invalid || !this.job) {
