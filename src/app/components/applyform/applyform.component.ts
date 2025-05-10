@@ -6,9 +6,10 @@ import { CommonModule } from '@angular/common';
 import { JobService } from '../../services/job.service';
 import { ResumeService } from '../../services/resume.service';
 import { JobapplicationService } from '../../services/jobapplication.service';
+import { UserService } from '../../services/user.service'; 
 
 import { Job } from '../../../models/job.model';
-import { JobApplication, ApplicationStatus } from '../../../models/job-application.model';
+import { JobApplication, ApplicationStatus } from '../../../models/jobapplication.model';
 
 @Component({
   selector: 'app-applyform',
@@ -21,26 +22,37 @@ export class ApplyformComponent implements OnInit {
   job: Job | undefined;
   resumeText = '';
   coverLetter = '';
-  jobseekerId = 10;
+  jobseekerId = 0; // ✅ Start empty
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private jobService: JobService,
     private resumeService: ResumeService,
-    private jobApplicationService: JobapplicationService
+    private jobApplicationService: JobapplicationService,
+    private userService: UserService // ✅ Inject UserService
   ) { }
 
   ngOnInit(): void {
+    // ✅ Load logged-in user ID from localStorage
+    const storedId = localStorage.getItem('userId');
+    if (storedId) {
+      this.jobseekerId = Number(storedId);
+    } else {
+      alert('You must be logged in to apply.');
+      this.router.navigate(['/login']);
+      return;
+    }
+  
     const idParam = this.route.snapshot.paramMap.get('id');
     const jobId = idParam ? Number(idParam) : null;
-
+  
     if (!jobId || isNaN(jobId)) {
       alert('Invalid job ID');
       this.router.navigate(['/jobs']);
       return;
     }
-
+  
     this.jobService.getById(jobId).subscribe({
       next: job => (this.job = job),
       error: () => {
@@ -49,9 +61,10 @@ export class ApplyformComponent implements OnInit {
       }
     });
   }
-// method in Angular does exactly what Lecture 08 describes: Sends a model (resume) ➝ receives response ➝ sends job application model using new data.
+  
 
   submitApplication(form: NgForm): void {
+    console.log('Form submitted!', form.valid, this.resumeText, this.coverLetter);
     if (form.invalid || !this.job) {
       alert('Please fill in all required fields correctly.');
       return;
@@ -62,8 +75,10 @@ export class ApplyformComponent implements OnInit {
       jobseekerId: this.jobseekerId,
       resumeId: 0, // will be set after resume creation
       coverLetter: this.coverLetter,
-      status: ApplicationStatus.Interview
+      status: ApplicationStatus.Applied
     };
+    
+    console.log('Submitting resume for jobseeker ID:', this.jobseekerId); //debug
 
     this.resumeService.create({
       jobseekerId: this.jobseekerId,

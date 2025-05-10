@@ -3,7 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { JobService } from '../../services/job.service';
 import { Job } from '../../../models/job.model';
-import { JobApplication } from '../../../models/job-application.model';
+import { JobApplication } from '../../../models/jobapplication.model';
 
 @Component({
   selector: 'app-managejobs',
@@ -16,9 +16,9 @@ export class ManagejobsComponent implements OnInit {
   jobs: Job[] = [];
   applications: { [jobId: number]: JobApplication[] } = {};
   expandedJobId: number | null = null;
-  private employerId = 8; // udskift til dynamisk login-bruger senere
+  private employerId = Number(localStorage.getItem('userId'));
 
-  constructor(private jobService: JobService, private router: Router) { }
+  constructor(private jobService: JobService, private router: Router) {}
 
   ngOnInit(): void {
     this.jobService.getJobs().subscribe(allJobs => {

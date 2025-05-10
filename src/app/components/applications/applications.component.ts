@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { JobapplicationService } from '../../services/jobapplication.service';
-import { JobApplication } from '../../../models/job-application.model';
+import { JobApplication } from '../../../models/jobapplication.model';
 
 @Component({
   selector: 'app-applications',
@@ -13,7 +13,7 @@ import { JobApplication } from '../../../models/job-application.model';
 })
 export class ApplicationsComponent implements OnInit {
   applications: JobApplication[] = [];
-  jobseekerId = 10; // TODO: make dynamic later
+  jobseekerId = Number(localStorage.getItem('userId'));
 
   constructor(private jobApplicationService: JobapplicationService) {}
 

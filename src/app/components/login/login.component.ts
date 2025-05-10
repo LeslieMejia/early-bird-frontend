@@ -21,22 +21,26 @@ export class LoginComponent {
   constructor(private router: Router, private userService: UserService) { }
 
   onSubmit(form: NgForm) {
-    // 1) prevent submission if validation fails
     if (form.invalid) {
       alert('Please enter both email and password correctly.');
       return;
     }
 
-    // 2) proceed with login
     this.userService.login(this.user).subscribe({
       next: res => {
         console.log('Login successful:', res);
+    
+        this.userService.setUserId(res.id);
+        localStorage.setItem('userId', res.id);      // ✅ Store ID
+        localStorage.setItem('userRole', res.role);      // ✅ Store role
+        localStorage.setItem('userName', res.name);      // ✅ Store name
+    
         this.router.navigate(['/dashboard']);
       },
       error: err => {
         console.error('Login failed:', err);
         alert('Invalid credentials');
       }
-    });
+    });    
   }
 }

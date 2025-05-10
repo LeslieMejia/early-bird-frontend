@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Job, JobStatus } from '../../models/job.model';
-import { JobApplication } from '../../models/job-application.model';
+import { JobApplication } from '../../models/jobapplication.model';
 
 const sampleJobs: Job[] = [
   {

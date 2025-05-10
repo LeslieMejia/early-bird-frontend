@@ -16,7 +16,7 @@ export class PostjobComponent implements OnInit {
   // Two-way bound job object for the form
   job: Job = {
     id: 0,
-    employerId: 8, // Static for now; can come from login/user context later
+    employerId: 4, // Static for now; can come from login/user context later
     title: '',
     company: '',
     location: '',

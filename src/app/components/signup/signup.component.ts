@@ -30,20 +30,26 @@ export class SignupComponent {
   ) {}
 
   // Called when form is submitted and validations have passed
+
   onSubmit() {
-    // Final check in TypeScript (redundant with HTML check but safe)
     if (this.user.passwordHash !== this.confirmPassword) {
       alert('Passwords do not match');
       return;
     }
-
-    // Call your service to send user data to the backend
+  
+    console.log('User sent to backend:', this.user);
+  
     this.userService.createUser(this.user).subscribe({
-      next: () => this.router.navigate(['/dashboard']),
+      next: (res) => {
+        localStorage.setItem('userId', res.id);       // ✅ Save returned ID
+        localStorage.setItem('userRole', res.role);   // ✅ Save role
+        this.router.navigate(['/dashboard']);
+      },
       error: (err) => {
         console.error('Signup failed:', err);
         alert('Signup failed. Please try again.');
       }
     });
+    
   }
 }

@@ -4,18 +4,11 @@
 
   <!-- Signup form using Angular's ngForm directive -->
   <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
-    
+
     <!-- Full Name Field -->
     <div class="form-group">
       <label for="name">Full Name</label>
-      <input 
-        id="name" 
-        type="text" 
-        name="name" 
-        [(ngModel)]="user.name" 
-        required
-        #name="ngModel" 
-      />
+      <input id="name" type="text" name="name" [(ngModel)]="user.name" required #name="ngModel" />
       <!-- Validation message if name is invalid and touched -->
       <div *ngIf="name.invalid && name.touched">
         <small>Full Name is required.</small>
@@ -25,15 +18,7 @@
     <!-- Email Field -->
     <div class="form-group">
       <label for="email">Email</label>
-      <input 
-        id="email" 
-        type="email" 
-        name="email" 
-        [(ngModel)]="user.email" 
-        required
-        email
-        #email="ngModel"
-      />
+      <input id="email" type="email" name="email" [(ngModel)]="user.email" required email #email="ngModel" />
       <!-- Validation message if email is invalid and touched -->
       <div *ngIf="email.invalid && email.touched">
         <small>Valid Email is required.</small>
@@ -43,31 +28,18 @@
     <!-- Phone Number Field -->
     <div class="form-group">
       <label for="phone">Phone Number</label>
-      <input 
-        id="phone" 
-        type="text" 
-        name="phone" 
-        [(ngModel)]="user.phone" 
-        required
-        pattern="\\d{8,15}" 
-        #phone="ngModel"
-      />
-      <!-- Validation message if phone is invalid and touched -->
+      <input id="phone" type="text" name="phone" [(ngModel)]="user.phone" required pattern="^\+45\d{8}$"
+        placeholder="+4512345678" #phone="ngModel" />
       <div *ngIf="phone.invalid && phone.touched">
-        <small>Phone number must be 8–15 digits.</small>
+        <small>Must start with +45 and have 8 digits (e.g., +4512345678).</small>
       </div>
     </div>
+
 
     <!-- Role Selection Dropdown -->
     <div class="form-group">
       <label for="role">Select Role</label>
-      <select 
-        id="role" 
-        name="role" 
-        [(ngModel)]="user.role" 
-        required
-        #role="ngModel"
-      >
+      <select id="role" name="role" [(ngModel)]="user.role" required #role="ngModel">
         <option value="" disabled selected>Select Role</option>
         <option value="jobseeker">JobSeeker</option>
         <option value="employer">Employer</option>
@@ -81,15 +53,8 @@
     <!-- Password Field -->
     <div class="form-group">
       <label for="password">Password</label>
-      <input 
-        id="password" 
-        type="password" 
-        name="passwordHash" 
-        [(ngModel)]="user.passwordHash" 
-        required
-        minlength="6"
-        #password="ngModel"
-      />
+      <input id="password" type="password" name="passwordHash" [(ngModel)]="user.passwordHash" required minlength="6"
+        #password="ngModel" />
       <!-- Validation message if password is invalid and touched -->
       <div *ngIf="password.invalid && password.touched">
         <small>Password must be at least 6 characters.</small>
@@ -99,15 +64,8 @@
     <!-- Confirm Password Field -->
     <div class="form-group">
       <label for="confirmPassword">Confirm Password</label>
-      <input 
-        id="confirmPassword" 
-        type="password" 
-        name="confirmPassword" 
-        [(ngModel)]="confirmPassword" 
-        required
-        minlength="6"
-        #confirmPasswordField="ngModel"
-      />
+      <input id="confirmPassword" type="password" name="confirmPassword" [(ngModel)]="confirmPassword" required
+        minlength="6" #confirmPasswordField="ngModel" />
       <!-- Validation message if confirm password is invalid and touched -->
       <div *ngIf="confirmPasswordField.invalid && confirmPasswordField.touched">
         <small>Confirm Password is required.</small>

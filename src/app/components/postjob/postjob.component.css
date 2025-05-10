@@ -1,53 +1,92 @@
-h2 {
-    font-size: 24px;
+.post-job-card {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px 40px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .post-job-card h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #333333;
+    text-align: center;
+  }
+  
+  .form-group {
     margin-bottom: 20px;
-}
-
-label {
+  }
+  
+  .form-group label {
     display: block;
-    margin-top: 15px;
-    font-weight: bold;
-}
-
-input,
-textarea {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555555;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
     width: 100%;
-    padding: 10px;
+    padding: 12px 15px;
+    font-size: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .error {
+    color: #d9534f;
+    font-size: 13px;
     margin-top: 5px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    resize: vertical;
-}
-
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 12px;
     background-color: #007bff;
-    color: white;
+    color: #ffffff;
     font-weight: bold;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-}
-
-button:hover {
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
     background-color: #0056b3;
-}
-
-a.back-button {
+  }
+  
+  button[type="submit"]:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .back-button {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
     color: #007bff;
-    border-radius: 4px;
+    border-radius: 6px;
     text-decoration: none;
     font-weight: bold;
-}
-
-a.back-button:hover {
-    background-color: #e0e0e0;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #e2e6ea;
     text-decoration: underline;
-}
+  }
+  

@@ -5,56 +5,80 @@
   <!-- Template-driven form using ngModel -->
   <form #jobForm="ngForm" (ngSubmit)="submit()">
 
-    <!-- Job Title (required) -->
-    <label>Job Title:</label>
-    <input type="text" name="title" [(ngModel)]="job.title" required #title="ngModel" />
-    <div *ngIf="title.invalid && title.touched" class="error">Title is required</div>
-
-    <!-- Company (required) -->
-    <label>Company:</label>
-    <input type="text" name="company" [(ngModel)]="job.company" required #company="ngModel" />
-    <div *ngIf="company.invalid && company.touched" class="error">Company is required</div>
-
-    <!-- Location (required) -->
-    <label>Location:</label>
-    <input type="text" name="location" [(ngModel)]="job.location" required #location="ngModel" />
-    <div *ngIf="location.invalid && location.touched" class="error">Location is required</div>
-
-    <!-- Description -->
-    <label>Description:</label>
-    <textarea name="description" [(ngModel)]="job.description" #description="ngModel"></textarea>
-
-    <!-- Category (required) -->
-    <label>Category: <small>(e.g. Full-time, Part-time)</small></label>
-    <input type="text" name="category" [(ngModel)]="job.category" required #category="ngModel" />
-    <div *ngIf="category.invalid && category.touched" class="error">
-      Category is required (like "Full-time" or "Part-time")
+    <!-- Job Title -->
+    <div class="form-group">
+      <label for="title">Job Title:</label>
+      <input type="text" id="title" name="title" [(ngModel)]="job.title" required #title="ngModel" />
+      <div *ngIf="title.invalid && title.touched" class="error">
+        Title is required
+      </div>
     </div>
 
-    <!-- Status (dropdown) -->
-    <label>Status:</label>
-    <select name="status" [(ngModel)]="job.status" required #status="ngModel">
-      <option value="" disabled selected>Select status</option>
-      <option [ngValue]="'active'">Active</option>
-      <option [ngValue]="'expired'">Expired</option>
-      <option [ngValue]="'closed'">Closed</option>
-    </select>
-    <div *ngIf="status.invalid && status.touched" class="error">Status is required</div>
+    <!-- Company -->
+    <div class="form-group">
+      <label for="company">Company:</label>
+      <input type="text" id="company" name="company" [(ngModel)]="job.company" required #company="ngModel" />
+      <div *ngIf="company.invalid && company.touched" class="error">
+        Company is required
+      </div>
+    </div>
+
+    <!-- Location -->
+    <div class="form-group">
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" [(ngModel)]="job.location" required #location="ngModel" />
+      <div *ngIf="location.invalid && location.touched" class="error">
+        Location is required
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" [(ngModel)]="job.description" rows="5"
+        #description="ngModel"></textarea>
+    </div>
+
+    <!-- Category -->
+    <div class="form-group">
+      <label for="category">Category: <small>(e.g., Full-time, Part-time)</small></label>
+      <input type="text" id="category" name="category" [(ngModel)]="job.category" required #category="ngModel" />
+      <div *ngIf="category.invalid && category.touched" class="error">
+        Category is required
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div class="form-group">
+      <label for="status">Status:</label>
+      <select id="status" name="status" [(ngModel)]="job.status" required #status="ngModel">
+        <option value="" disabled selected>Select status</option>
+        <option [ngValue]="'active'">Active</option>
+        <option [ngValue]="'expired'">Expired</option>
+        <option [ngValue]="'closed'">Closed</option>
+      </select>
+      <div *ngIf="status.invalid && status.touched" class="error">
+        Status is required
+      </div>
+    </div>
 
     <!-- Salary Range -->
-    <label>Salary Range:</label>
-    <input type="text" name="salaryRange" [(ngModel)]="job.salaryRange" #salaryRange="ngModel" />
+    <div class="form-group">
+      <label for="salaryRange">Salary Range:</label>
+      <input type="text" id="salaryRange" name="salaryRange" [(ngModel)]="job.salaryRange" #salaryRange="ngModel" />
+    </div>
 
     <!-- Submit Button -->
     <button type="submit" [disabled]="jobForm.invalid">
       {{ editing ? 'Update Job' : 'Post Job' }}
     </button>
-
   </form>
 
   <a routerLink="/manage-jobs" class="back-button">← Back to Manage Jobs</a>
+</div>
 
-  <!-- 
+
+<!-- 
     Summary of Changes (Template):
 
     ✅ Switched to template-driven forms using [(ngModel)] for two-way data binding.
@@ -64,5 +88,3 @@
     ✅ Instructions added for fields like "Category" to clarify expected input (e.g., "Full-time").
     ✅ Matches professor's example more closely by avoiding Reactive Forms.
   -->
-
-</div>
