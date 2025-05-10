@@ -14,5 +14,6 @@ export interface JobApplication {
   status: ApplicationStatus; //Enum
   resumeContent?: string;
   jobTitle?: string; // ✅ Add this line
+  jobSeekerName?: string; 
 }
 

@@ -20,7 +20,7 @@
       <h4>Applicants:</h4>
       <ng-container *ngIf="applications[job.id]?.length; else noApps">
         <div *ngFor="let app of applications[job.id]" class="app-card">
-          <p><strong>Applicant ID:</strong> {{ app.jobseekerId }}</p>
+          <p><strong>Applicant:</strong> {{ app.jobSeekerName || 'Unknown' }}</p>
           <p><strong>Cover Letter:</strong> {{ app.coverLetter }}</p>
           <p><strong>Resume:</strong> {{ app.resumeContent }}</p>
         </div>

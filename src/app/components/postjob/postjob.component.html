@@ -63,10 +63,12 @@
     </div>
 
     <!-- Salary Range -->
-    <div class="form-group">
-      <label for="salaryRange">Salary Range:</label>
-      <input type="text" id="salaryRange" name="salaryRange" [(ngModel)]="job.salaryRange" #salaryRange="ngModel" />
+    <input id="salaryRange" type="text" name="salaryRange" [(ngModel)]="job.salaryRange"
+      placeholder="e.g., DKK 200–300/hour" pattern="^DKK \d{2,5}–\d{2,5}/hour$" #salaryRange="ngModel" />
+    <div *ngIf="salaryRange.invalid && salaryRange.touched" class="error">
+      Format must be like: <strong>DKK 200–300/hour</strong>
     </div>
+
 
     <!-- Submit Button -->
     <button type="submit" [disabled]="jobForm.invalid">

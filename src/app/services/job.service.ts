@@ -1,34 +1,9 @@
+// src/app/services/job.service.ts
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Job, JobStatus } from '../../models/job.model';
 import { JobApplication } from '../../models/jobapplication.model';
-
-const sampleJobs: Job[] = [
-  {
-    id: 1,
-    employerId: 2,
-    title: 'Frontend Developer',
-    company: 'CoolStartup',
-    description: 'Build great UIs',
-    location: 'Copenhagen',
-    salaryRange: 'DKK 45,000–55,000',
-    category: 'Full-time',
-    status: JobStatus.active
-  },
-  {
-    id: 2,
-    employerId: 8,
-    title: 'Backend Developer',
-    company: 'TechCorp',
-    description: 'Design robust APIs',
-    location: 'Aarhus',
-    salaryRange: 'DKK 30,000–45,000',
-    category: 'Part-time',
-    status: JobStatus.active
-  }
-];
 
 @Injectable({
   providedIn: 'root'
@@ -36,66 +11,40 @@ const sampleJobs: Job[] = [
 export class JobService {
   private baseUrl: string = 'http://localhost:5147/api/job';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  /** Fetch all jobs; fallback to sampleJobs on error */
+  /** Get all jobs from backend */
   getJobs(): Observable<Job[]> {
-    return this.http.get<Job[]>(`${this.baseUrl}`).pipe(
-      catchError(err => {
-        console.warn('getJobs() failed, falling back to sampleJobs', err);
-        return of(sampleJobs);
-      })
-    );
+    return this.http.get<Job[]>(`${this.baseUrl}`);
   }
 
-  /** Fetch one job by ID; fallback to sampleJobs on error */
+  /** Get one job by ID */
   getById(id: number): Observable<Job> {
-    return this.http.get<Job>(`${this.baseUrl}/${id}`).pipe(
-      catchError(err => {
-        console.warn(`getById(${id}) failed, falling back to sampleJobs`, err);
-        const job = sampleJobs.find(j => j.id === id)!;
-        return of(job);
-      })
-    );
+    return this.http.get<Job>(`${this.baseUrl}/${id}`);
   }
 
-  /** Create a new job (mock for now) */
+  /** Create a new job */
   createJob(job: Job): Observable<any> {
-    console.log('Mock createJob()', job);
-    return of({ success: true });
+    return this.http.post(`${this.baseUrl}`, job);
   }
 
-  /** Update an existing job (mock for now) */
+  /** Update an existing job */
   updateJob(id: number, job: Job): Observable<any> {
-    console.log('Mock updateJob()', id, job);
-    return of({ success: true });
+    return this.http.put(`${this.baseUrl}`, job);
   }
 
-  /** Delete a job (mock for now) */
+  /** Delete a job */
   deleteJob(id: number): Observable<any> {
-    console.log('Mock deleteJob()', id);
-    return of({ success: true });
+    return this.http.delete(`${this.baseUrl}/${id}`);
   }
 
-  /** Submit an application */
+  /** Submit a job application */
   submitApplication(app: JobApplication): Observable<any> {
-    return this.http.post(`${this.baseUrl}/applications`, app).pipe(
-      tap(() => console.log('submitApplication() → real API call')),
-      catchError(err => {
-        console.warn('submitApplication() failed, logging locally', err);
-        console.log('📬 Mock Applied:', app);
-        return of(null);
-      })
-    );
+    return this.http.post(`${this.baseUrl}/applications`, app);
   }
 
-  /** Fetch applications for a specific job */
+  /** Get applications for a specific job */
   getApplicationsByJobId(jobId: number): Observable<JobApplication[]> {
-    return this.http.get<JobApplication[]>(`${this.baseUrl}/applications/job/${jobId}`).pipe(
-      catchError(err => {
-        console.warn(`getApplicationsByJobId(${jobId}) failed, returning []`, err);
-        return of([]);
-      })
-    );
+    return this.http.get<JobApplication[]>(`${this.baseUrl}/applications/job/${jobId}`);
   }
 }
